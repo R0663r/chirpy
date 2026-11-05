@@ -1,9 +1,20 @@
 package main
 
 import (
-	"fmt"
+	"log"
+	"net/http"
 )
 
 func main() {
-	fmt.Println("Hello, World!")
+	handler := http.NewServeMux()
+	
+	server := http.Server{
+		Addr: ":8080",
+		Handler: handler,
+	}
+	err := server.ListenAndServe()
+	if err != nil {
+		log.Fatal("Server is broken...")
+	}
+	defer server.Close()
 }
